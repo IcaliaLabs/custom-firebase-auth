@@ -1,0 +1,19 @@
+<div>
+  <h2>Log in</h2>
+
+  <%= form_with url: '#' do |f| %>
+    <div>
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+    </div>
+
+    <div>
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </div>
+
+    <div>
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>
