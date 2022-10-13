@@ -44,6 +44,10 @@ class IcalialabsFirebaseGenerator < Rails::Generators::NamedBase
   <% end %>
 </div>
       FILE
+    elsif class_name == "User"
+      template 'user.rb', File.join('app/models', class_path, "user.rb")
+      time = Time.now.strftime("%Y%m%d%H%M%S")
+      template "migration.rb", File.join('db/migrate/', class_path, "#{time}_create_users.rb")
     end
   end
 end
