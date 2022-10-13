@@ -1,0 +1,10 @@
+Description:
+  With "rails g icalialabs_firebase name" you can generate views and controllers that
+  will be used in order to authenticate users with Firebase.
+
+Example:
+  bin/rails g icalialabs_firebase views
+
+  This will create a folder named 'firebase' with two partials:
+    - app/views/firebase/login.html.erb
+    - app/views/firebase/signin.html.erb

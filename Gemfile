@@ -4,8 +4,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # Specify your gem's dependencies in icalialabs-firebase.gemspec.
 gemspec
 
-gem "sqlite3"
-
 gem "sprockets-rails"
 
 # Start debugger with binding.b [https://github.com/ruby/debug]
