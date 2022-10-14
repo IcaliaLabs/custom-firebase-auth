@@ -1,7 +1,7 @@
 <div>
   <h2>Sign up</h2>
 
-  <%= form_with url: '#' do |f| %>
+  <%= form_with url: create_user_path do |f| %>
     <div>
       <%= f.label :email %>
       <%= f.email_field :email %>

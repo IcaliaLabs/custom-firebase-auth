@@ -3,15 +3,16 @@ require 'uri'
 require 'json'
 
 class FirebaseController < ApplicationController
+  before_action :user_email, only: %i[create_user create_session]
+
   def login; end
 
   def signup; end
 
   def create_user
-    user_email
     uri = URI("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=HERE_GOES_MY_API_KEY")
-
     response = Net::HTTP.post_form(uri, "email": @email, "password": @password)
+
     data = JSON.parse(response.body)
     session[:user_id] = data["localId"]
     session[:data] = data
@@ -20,12 +21,10 @@ class FirebaseController < ApplicationController
   end
 
   def create_session
-    user_email
     uri = URI("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=HERE_GOES_MY_API_KEY")
-
     response = Net::HTTP.post_form(uri, "email": @email, "password": @password)
-    data = JSON.parse(response.body)
 
+    data = JSON.parse(response.body)
 
     if response.is_a?(Net::HTTPSuccess)
       session[:user_id] = data["localId"]
