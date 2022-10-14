@@ -35,7 +35,7 @@ class FirebaseController < ApplicationController
 
   def logout
     session.clear
-    redirect_to root_path, notice: "Log Out"
+    redirect_to root_path, notice: "Successfully log out"
   end
 
   private
