@@ -4,7 +4,8 @@ class IcalialabsFirebaseGenerator < Rails::Generators::NamedBase
   def create_views
     case class_name
       when 'Install'
-        template 'lib/generators/icalialabs_firebase/templates/firebase_controller.rb', File.join('app/controllers', class_path, "firebase_controller.rb")
+        template 'lib/generators/icalialabs_firebase/templates/firebase_controller.rb',
+                  File.join('app/controllers', class_path, 'firebase_controller.rb')
         firebase_routes
         inject_code_with_install
       when 'Views'
@@ -18,10 +19,10 @@ class IcalialabsFirebaseGenerator < Rails::Generators::NamedBase
   private
 
   def message_command
-    puts "Sorry, that command is not recognized."
-    puts "Try one of the commands below:"
-    puts "  - rails g icalialabs_firebase install"
-    puts "  - rails g icalialabs_firebase views"
+    puts 'Sorry, that command is not recognized.'
+    puts 'Try one of the commands below:'
+    puts '  - rails g icalialabs_firebase install'
+    puts '  - rails g icalialabs_firebase views'
   end
 
   def firebase_routes
@@ -34,7 +35,7 @@ class IcalialabsFirebaseGenerator < Rails::Generators::NamedBase
 
   def inject_code_with_install
     inject_into_file 'app/controllers/application_controller.rb',
-      after: "class ApplicationController < ActionController::Base\n" do <<-'RUBY'
+      after: 'class ApplicationController < ActionController::Base\n' do <<-'RUBY'
   helper_method :current_user
 
   def current_user
@@ -45,8 +46,7 @@ class IcalialabsFirebaseGenerator < Rails::Generators::NamedBase
   end
 
   def inject_code_with_views
-    inject_into_file 'app/views/layouts/application.html.erb',
-        after: "<body>\n" do <<-'RUBY'
+    inject_into_file 'app/views/layouts/application.html.erb', after: '<body>\n' do <<-'RUBY'
     <%= notice if notice %>
     <% if current_user.present? %>
       <%= button_to 'Log Out', logout_path, to: 'pages#logout', method: :delete %>
@@ -54,8 +54,8 @@ class IcalialabsFirebaseGenerator < Rails::Generators::NamedBase
       <%= button_to 'Log in', login_path, method: :get %>
       <%= button_to 'Sign up', signup_path, method: :get %>
     <% end %>
-        RUBY
-        end
+    RUBY
+    end
   end
 end
 
