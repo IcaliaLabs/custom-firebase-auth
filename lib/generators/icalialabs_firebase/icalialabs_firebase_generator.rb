@@ -18,8 +18,8 @@ class IcalialabsFirebaseGenerator < Rails::Generators::NamedBase
   def current_user
     @current_user ||= session[:user_id]
   end
-  RUBY
-  end
+              RUBY
+      end
 
     # ---------- Views argument. -------------
     elsif class_name == 'Views'
