@@ -1,11 +1,10 @@
 class IcalialabsFirebaseGenerator < Rails::Generators::NamedBase
-  source_root File.expand_path("../../../", __dir__)
+  source_root File.expand_path('../../../', __dir__)
 
   def create_views
     # ---------- Install argument. -------------
     if class_name == 'Install'
-      template 'lib/generators/icalialabs_firebase/templates/firebase_controller.rb',
-          File.join('app/controllers', class_path, "firebase_controller.rb")
+      template 'lib/generators/icalialabs_firebase/templates/firebase_controller.rb', File.join('app/controllers', class_path, "firebase_controller.rb")
       route "get '/login', to: 'firebase#login'"
       route "get '/signup', to: 'firebase#signup'"
       route "post '/create_user', to: 'firebase#create_user'"
@@ -33,8 +32,8 @@ class IcalialabsFirebaseGenerator < Rails::Generators::NamedBase
       <%= button_to 'Log in', login_path, method: :get %>
       <%= button_to 'Sign up', signup_path, method: :get %>
     <% end %>
-  RUBY
-  end
+              RUBY
+      end
     end
   end
 end
