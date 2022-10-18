@@ -4,8 +4,7 @@ class IcalialabsFirebaseGenerator < Rails::Generators::NamedBase
   def create_views
     case class_name
       when 'Install'
-        template 'lib/generators/icalialabs_firebase/templates/firebase_controller.rb',
-                  File.join('app/controllers', class_path, 'firebase_controller.rb')
+        copy_templates_with_install
         firebase_routes
         inject_code_with_install
       when 'Views'
@@ -25,6 +24,11 @@ class IcalialabsFirebaseGenerator < Rails::Generators::NamedBase
     puts '  - rails g icalialabs_firebase views'
   end
 
+  def copy_templates_with_install
+    template 'lib/generators/icalialabs_firebase/templates/firebase_controller.rb',
+              File.join('app/controllers', class_path, 'firebase_controller.rb')
+  end
+
   def firebase_routes
     route "get '/login', to: 'firebase#login'"
     route "get '/signup', to: 'firebase#signup'"
@@ -35,7 +39,7 @@ class IcalialabsFirebaseGenerator < Rails::Generators::NamedBase
 
   def inject_code_with_install
     inject_into_file 'app/controllers/application_controller.rb',
-      after: 'class ApplicationController < ActionController::Base\n' do <<-'RUBY'
+      after: "class ApplicationController < ActionController::Base\n" do <<-'RUBY'
   helper_method :current_user
 
   def current_user
@@ -46,13 +50,13 @@ class IcalialabsFirebaseGenerator < Rails::Generators::NamedBase
   end
 
   def inject_code_with_views
-    inject_into_file 'app/views/layouts/application.html.erb', after: '<body>\n' do <<-'RUBY'
+    inject_into_file 'app/views/layouts/application.html.erb', after: "<body>\n" do <<-'RUBY'
     <%= notice if notice %>
     <% if current_user.present? %>
-      <%= button_to 'Log Out', logout_path, to: 'pages#logout', method: :delete %>
+      <%= button_to 'Log Out', logout_path, to: 'pages#logout', method: :delete, id: 'logout_button' %>
     <% else %>
-      <%= button_to 'Log in', login_path, method: :get %>
-      <%= button_to 'Sign up', signup_path, method: :get %>
+      <%= button_to 'Log in', login_path, method: :get, id: 'login_button' %>
+      <%= button_to 'Sign up', signup_path, method: :get, id: 'signup_button' %>
     <% end %>
     RUBY
     end
