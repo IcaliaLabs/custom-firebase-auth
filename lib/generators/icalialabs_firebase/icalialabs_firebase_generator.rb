@@ -27,6 +27,8 @@ class IcalialabsFirebaseGenerator < Rails::Generators::NamedBase
   def copy_templates_with_install
     template 'lib/generators/icalialabs_firebase/templates/firebase_controller.rb',
               File.join('app/controllers', class_path, 'firebase_controller.rb')
+    template 'lib/generators/icalialabs_firebase/templates/firebase_spec.rb',
+              File.join('app/spec/system', class_path, 'firebase_spec.rb')
   end
 
   def firebase_routes
