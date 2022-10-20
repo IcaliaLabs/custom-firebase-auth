@@ -9,20 +9,13 @@ class IcalialabsFirebaseGenerator < Rails::Generators::NamedBase
         inject_code_with_install
       when 'Views'
         directory 'app/views/firebase/', 'app/views/firebase/'
-        inject_code_with_views
+        views_readme
       else
-        message_command
+        error_readme
     end
   end
 
   private
-
-  def message_command
-    puts 'Sorry, that command is not recognized.'
-    puts 'Try one of the commands below:'
-    puts '  - rails g icalialabs_firebase install'
-    puts '  - rails g icalialabs_firebase views'
-  end
 
   def copy_templates_with_install
     template 'lib/generators/icalialabs_firebase/templates/firebase_controller.rb',
@@ -51,17 +44,12 @@ class IcalialabsFirebaseGenerator < Rails::Generators::NamedBase
       end
   end
 
-  def inject_code_with_views
-    inject_into_file 'app/views/layouts/application.html.erb', after: "<body>\n" do <<-'RUBY'
-    <%= notice if notice %>
-    <% if current_user.present? %>
-      <%= button_to 'Log Out', logout_path, to: 'pages#logout', method: :delete, id: 'logout_button' %>
-    <% else %>
-      <%= button_to 'Log in', login_path, method: :get, id: 'login_button' %>
-      <%= button_to 'Sign up', signup_path, method: :get, id: 'signup_button' %>
-    <% end %>
-    RUBY
-    end
+  def views_readme
+    readme "lib/generators/icalialabs_firebase/templates/views_readme.md"
+  end
+
+  def error_readme
+    readme "lib/generators/icalialabs_firebase/templates/error_readme.md"
   end
 end
 
