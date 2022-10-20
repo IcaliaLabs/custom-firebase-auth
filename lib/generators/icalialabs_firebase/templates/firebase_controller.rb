@@ -10,32 +10,36 @@ class FirebaseController < ApplicationController
   def signup; end
 
   def create_user
-    uri = URI("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=HERE_GOES_MY_API_KEY")
+    uri = URI('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=HERE_GOES_MY_API_KEY')
     response = Net::HTTP.post_form(uri, "email": @email, "password": @password)
 
     data = JSON.parse(response.body)
-    session[:user_id] = data["localId"]
+    session[:user_id] = data['localId']
     session[:data] = data
 
-    redirect_to root_path, notice: "Sign Up successfully." if response.is_a?(Net::HTTPSuccess)
+    if response.is_a?(Net::HTTPSuccess)
+      redirect_to root_path, notice: 'Sign Up successfully.'
+    else
+      redirect_to signup_path, notice: 'Something happend, try again.'
+    end
   end
 
   def create_session
-    uri = URI("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=HERE_GOES_MY_API_KEY")
+    uri = URI('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=HERE_GOES_MY_API_KEY')
     response = Net::HTTP.post_form(uri, "email": @email, "password": @password)
 
     data = JSON.parse(response.body)
 
     if response.is_a?(Net::HTTPSuccess)
-      session[:user_id] = data["localId"]
+      session[:user_id] = data['localId']
       session[:data] = data
-      redirect_to root_path, notice: "Log in successfully."
+      redirect_to root_path, notice: 'Log in successfully.'
     end
   end
 
   def logout
     session.clear
-    redirect_to root_path, notice: "Successfully log out"
+    redirect_to root_path, notice: 'Successfully log out'
   end
 
   private
