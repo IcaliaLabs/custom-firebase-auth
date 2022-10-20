@@ -30,8 +30,8 @@ class IcalialabsFirebaseGenerator < Rails::Generators::NamedBase
   end
 
   def firebase_routes
-    route "get '/login', to: 'firebase#login'"
-    route "get '/signup', to: 'firebase#signup'"
+    route "get '/login', to: 'firebase#login', as: 'login'"
+    route "get '/signup', to: 'firebase#signup', as: 'signup'"
     route "post '/create_user', to: 'firebase#create_user'"
     route "post '/create_session', to: 'firebase#create_session'"
     route "delete '/logout', to: 'firebase#logout', as: 'logout'"
